@@ -69,11 +69,12 @@
 
                 </div>
                 <div class="modal-footer">
-                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="Submit" class="btn btn-white">Sure, Logout</button>
-                    <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal">Close</button>
-                    </form> --}}
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="Submit" class="btn btn-white">Sure, Logout</button>
+                        <button type="button" class="btn btn-link text-white ml-auto"
+                            data-dismiss="modal">Close</button>
+                    </form>
                 </div>
 
             </div>

@@ -13,7 +13,8 @@
                 <!-- Nav items -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="dashboard.html">
+                        <a class="nav-link  {{ $curr_url=='seniorManagement.index'?'active':''}}"
+                            href="{{route('seniorManagement.index')}}">
                             <i class="ni ni-tv-2 text-primary"></i>
                             <span class="nav-link-text">Dashboard</span>
                         </a>
