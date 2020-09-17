@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-5 pb-5">
     <!-- Table -->
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center mt-5 mb-3">
         <div class="col-lg-6 col-md-8 mt-5">
             <div class="card bg-secondary border-0 mt-5">
                 <div class="card-body px-lg-5 py-lg-5">
@@ -66,13 +66,8 @@
                                     type="password" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-                        <div class="text-muted font-italic">
-                            <small>password strength:
-                                <span class="text-success font-weight-700">strong</span>
-                            </small>
-                        </div>
                         <div class="text-center">
-                            <button type="button" class="btn btn-primary mt-4">Create account</button>
+                            <button type="submit" class="btn btn-primary mt-4">Create account</button>
                         </div>
                     </form>
                 </div>

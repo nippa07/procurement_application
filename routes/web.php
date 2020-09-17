@@ -14,13 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name('index');
 
 Route::prefix('/siteManager')->namespace('App\Http\Controllers\SiteManagerArea')->group(function () {
 
     Route::get('/', 'HomeController@index')->name('siteManager.index');
+
+    Route::get('/users', 'UserController@all')->name('siteManager.users.all');
+    Route::get('/users/add', 'UserController@add')->name('siteManager.users.add');
+    Route::post('/users/store', 'UserController@store')->name('siteManager.users.store');
+    Route::get('/users/view/{id}', 'UserController@view')->name('siteManager.users.view');
+    Route::get('/users/edit/{id}', 'UserController@edit')->name('siteManager.users.edit');
+    Route::post('/users/update/{id}', 'UserController@update')->name('siteManager.users.update');
+    Route::get('/users/delete/{id}', 'UserController@delete')->name('siteManager.users.delete');
 });
 
 Route::prefix('/accounting')->namespace('App\Http\Controllers\AccountingStaffArea')->group(function () {

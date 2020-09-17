@@ -43,24 +43,14 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="custom-control custom-control-alternative custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" name="remember" id="remember"
-                                {{ old('remember') ? 'checked' : '' }}>
-                            <label class="custom-control-label" for="remember">
-                                <span class="text-muted">Remember me</span>
-                            </label>
-                        </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary my-4">Sign in</button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="col-6">
-                    <a href="{{route('password.request')}}" class="text-light"><small>Forgot password?</small></a>
-                </div>
-                <div class="col-6 text-right">
+            <div class="row justify-content-center mt-3">
+                <div class="col-lg-6 text-center">
                     <a href="{{route('register')}}" class="text-light"><small>Create new account</small></a>
                 </div>
             </div>
