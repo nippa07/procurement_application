@@ -29,10 +29,24 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link  {{ $curr_url=='siteManager.users.all'?'active':''}}"
-                            href="{{route('siteManager.users.all')}}">
+                        <a class="nav-link  {{ $curr_url=='siteManager.sites.all'?'active':''}}"
+                            href="{{route('siteManager.sites.all')}}">
+                            <i class="fas fa-building"></i>
+                            <span class="nav-link-text">Sites</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  {{ $curr_url=='siteManager.suppliers.all'?'active':''}}"
+                            href="{{route('siteManager.suppliers.all')}}">
                             <i class="fas fa-users"></i>
-                            <span class="nav-link-text">Users</span>
+                            <span class="nav-link-text">Suppliers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  {{ $curr_url=='siteManager.items.all'?'active':''}}"
+                            href="{{route('siteManager.items.all')}}">
+                            <i class="fas fa-mountain"></i>
+                            <span class="nav-link-text">Items</span>
                         </a>
                     </li>
                 </ul>

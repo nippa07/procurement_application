@@ -10,7 +10,7 @@ class UserController extends ParentController
 {
     public function all()
     {
-        $response['users'] = UserFacade::getAll();
+        $response['suppliers'] = UserFacade::getAllSuppliers();
 
         return view('SiteManagerArea.pages.users.all')->with($response);
     }
@@ -24,36 +24,36 @@ class UserController extends ParentController
     {
         UserFacade::saveUser($request->all());
 
-        return redirect(route('siteManager.users.all'))->with('alert-success', "User Added Successfully");
+        return redirect(route('siteManager.suppliers.all'))->with('alert-success', "Supplier Added Successfully");
     }
 
     public function view($id)
     {
-        $response['user'] = UserFacade::get($id);
+        $response['supplier'] = UserFacade::get($id);
 
         return view('SiteManagerArea.pages.users.view')->with($response);
     }
 
     public function edit($id)
     {
-        $response['user'] = UserFacade::get($id);
+        $response['supplier'] = UserFacade::get($id);
 
         return view('SiteManagerArea.pages.users.edit')->with($response);
     }
 
     function update($id, Request $request)
     {
-        $user = UserFacade::get($id);
+        $supplier = UserFacade::get($id);
 
-        UserFacade::updateUser($user, $request->all());
+        UserFacade::updateUser($supplier, $request->all());
 
-        return redirect(route('siteManager.users.all'))->with('alert-success', "User Updated Successfully");
+        return redirect(route('siteManager.suppliers.all'))->with('alert-success', "Supplier Updated Successfully");
     }
 
     public function delete($id)
     {
         UserFacade::deleteUser($id);
 
-        return redirect(route('siteManager.users.all'))->with('alert-success', "User Deleted Successfully");
+        return redirect(route('siteManager.suppliers.all'))->with('alert-success', "Supplier Deleted Successfully");
     }
 }

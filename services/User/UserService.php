@@ -108,4 +108,9 @@ class UserService
             return 'true';
         }
     }
+
+    public function getAllSuppliers()
+    {
+        return $this->user->where('user_level', User::USER_LEVEL['SUPPLIER'])->get();
+    }
 }
