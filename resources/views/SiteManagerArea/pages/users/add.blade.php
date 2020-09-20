@@ -6,12 +6,13 @@
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-dark d-inline-block mb-0">Add User</h6>
+                    <h6 class="h2 text-dark d-inline-block mb-0">Add Supplier</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-block ">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('siteManager.users.all') }}">Users</a></li>
-                            <li class="breadcrumb-item"><a href="">Add User</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('siteManager.suppliers.all') }}">Suppliers</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="">Add Supplier</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -27,7 +28,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('siteManager.users.store') }}" method="post">
+                <form action="{{ route('siteManager.suppliers.store') }}" method="post">
                     @csrf
                     <div class="row justify-content-center">
                         <div class="col-lg-6">
@@ -43,23 +44,35 @@
                                 <input id="inp_email" class="form-control" type="email" name="email" required>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="company_name"><b>Company</b> </label>
+                                <input id="company_name" class="form-control" type="text" name="company_name" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="phone"><b>Phone</b> </label>
+                                <input id="phone" class="form-control" type="text" name="phone" required>
+                            </div>
+                        </div>
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="user_level "><b>User Role</b> </label>
-                                <select class="form-control" name="user_level" id="user_level" required>
-                                    <option></option>
-                                    <option value="{{\App\Models\User::USER_LEVEL['SITE_MANAGER']}}">
-                                        Site Manager
-                                    </option>
-                                    <option value="{{\App\Models\User::USER_LEVEL['ACCOUNTING_STAFF']}}">
-                                        Accounting Staff
-                                    <option value="{{\App\Models\User::USER_LEVEL['SENIOR_MANAGEMENT']}}">
-                                        Senior Manager
-                                    </option>
-                                    <option value="{{\App\Models\User::USER_LEVEL['SUPPLIER']}}">
-                                        Supplier
-                                    </option>
-                                </select>
+                                <label for="address_1"><b>Address Line 1 </b> </label>
+                                <input id="address_1" class="form-control" type="text" name="address_1" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="address_2"><b>Address Line 2 </b> </label>
+                                <input id="address_2" class="form-control" type="text" name="address_2" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="address_3"><b>Address Line 3</b> </label>&nbsp;<sup
+                                    class="text-danger">*optional</sup>
+                                <input id="address_3" class="form-control" type="text" name="address_3">
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -89,7 +102,7 @@
 
                                 <h6 class="text-center responsive-moblile">
                                     <button type="submit" class="btn btn-primary di">
-                                        Add User
+                                        Add Supplier
                                     </button>
                                 </h6>
                             </div>
@@ -104,12 +117,7 @@
 
 @section('js')
 <script>
-    $(document).ready(function () {
-        $('#user_level').select2({
-            theme: 'bootstrap',
-            placeholder: 'Select User Level'
-        });
-    });
+    $(document).ready(function () {});
 
     $('#passGen').on('click', function () {
         var pass = Math.random().toString(36).slice(-8);
