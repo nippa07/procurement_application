@@ -9,7 +9,7 @@
             <div class="card bg-secondary border-0 mb-0 mt-5">
                 <div class="card-body px-lg-5 py-lg-5">
                     <div class="text-center text-muted mb-4">
-                        <small>Sign in with credentials</small>
+                        <span>Sign in with credentials</span>
                     </div>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -51,7 +51,7 @@
             </div>
             <div class="row justify-content-center mt-3">
                 <div class="col-lg-6 text-center">
-                    <a href="{{route('register')}}" class="text-light"><small>Create new account</small></a>
+                    <a href="{{route('register')}}" class="text-light"><small>Register as a supplier</small></a>
                 </div>
             </div>
         </div>
