@@ -217,5 +217,10 @@
 
       }
 
+      .badge-yellow {
+          color: #fac108;
+          background-color: #faefb0;
+      }
+
   </style>
   @yield('css')
