@@ -75,7 +75,7 @@
                                         </label>
                                         <input id="order_id" type="hidden" name="order_id" value="{{$order->id}}">
                                         <input id="order_delivery_id" type="hidden" name="order_delivery_id"
-                                            value="{{$order->order_delivery->id}}">
+                                            value="{{$order->order_delivery?$order->order_delivery->id:''}}">
                                     </div>
                                 </div>
                             </div>

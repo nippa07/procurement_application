@@ -1,4 +1,4 @@
-@extends('SiteManagerArea.layouts.app')
+@extends('SeniorManagementArea.layouts.app')
 
 @section('header-content')
 <div class="header pb-6">
@@ -13,18 +13,6 @@
                             <li class="breadcrumb-item"><a href="">Purchase Orders</a></li>
                         </ol>
                     </nav>
-                </div>
-                <div class="col-lg-6 text-right">
-                    <div class="">
-                        <a href="{{route('siteManager.orders.add')}}" class="btn btn-sm btn-neutral float-right">
-                            <i class="fa fa-plus-circle"></i> Add Purchase Order
-                        </a>
-                    </div>
-                    <div>
-                        <a href="{{route('siteManager.orders.all')}}" class="btn btn-sm btn-success float-right mr-3">
-                            Purchase Orders
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -47,7 +35,7 @@
             </thead>
             <tbody class="list">
                 @foreach ($orders as $key=> $order)
-                @if ($order->status != \App\Models\Order::STATUS['INCOMPLETE'])
+                @if ($order->status == \App\Models\Order::STATUS['INCOMPLETE'])
                 @continue
                 @endif
                 <tr>
@@ -68,10 +56,19 @@
                         <span class="badge badge-yellow">Pending</span>
                         @break
                         @case(\App\Models\Order::STATUS['APPROVED'])
-                        <span class="badge badge-success">Approved</span>
+                        <span class="badge badge-green">Approved</span>
                         @break
                         @case(\App\Models\Order::STATUS['DECLINED'])
                         <span class="badge badge-danger">Declined</span>
+                        @break
+                        @case(\App\Models\Order::STATUS['PLACED'])
+                        <span class="badge badge-primary">Placed</span>
+                        @break
+                        @case(\App\Models\Order::STATUS['DELIVERED'])
+                        <span class="badge badge-success">Delivered</span>
+                        @break
+                        @case(\App\Models\Order::STATUS['PARTIALLY_DELIVERED'])
+                        <span class="badge badge-info">Partially Delivered</span>
                         @break
                         @default
                         @endswitch
@@ -84,19 +81,23 @@
                                 <i class="fas fa-ellipsis-v"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                <a class="dropdown-item" href="{{route('siteManager.orders.view', $order->id)}}">
+                                <a class="dropdown-item" href="{{route('seniorManagement.orders.view', $order->id)}}">
                                     <i class="fas fa-eye text-primary"></i>&nbsp;View
                                 </a>
                                 <div class="dropdown-divider responsive-moblile"></div>
-                                <a class="dropdown-item" href="{{route('siteManager.orders.edit', $order->id)}}">
-                                    <i class="fas fa-user-edit text-info"></i>&nbsp;Edit
+                                @if ($order->status != \App\Models\Order::STATUS['APPROVED'])
+                                <a class="dropdown-item"
+                                    href="{{route('seniorManagement.orders.approve', $order->id)}}">
+                                    <i class="fas fa-check text-success"></i>&nbsp;Approve
                                 </a>
-                                <div class="dropdown-divider responsive-moblile">
-                                </div>
-                                <a class="dropdown-item delete-order" data-id="{{$order->id}}"
-                                    href="javascript:void(0)">
-                                    <i class="fas fa-user-times text-danger"></i>&nbsp;Delete
+                                <div class="dropdown-divider responsive-moblile"></div>
+                                @endif
+                                @if ($order->status != \App\Models\Order::STATUS['DECLINED'])
+                                <a class="dropdown-item"
+                                    href="{{route('seniorManagement.orders.decline', $order->id)}}">
+                                    <i class="fas fa-times text-danger"></i>&nbsp;Decline
                                 </a>
+                                @endif
                             </div>
 
                         </div>
@@ -122,23 +123,6 @@
         });
 
         $('[data-toggle="tooltip"]').tooltip()
-    });
-
-    $(".delete-order").on('click', function () {
-        var id = $(this).attr('data-id');
-        $.confirm({
-            title: 'Are you sure?',
-            content: 'This will delete this order permanently',
-            buttons: {
-                confirm: function () {
-                    window.location.href = '{{ url("siteManager/orders/delete") }}/' + id;
-                },
-                cancel: function () {
-
-                },
-            }
-        });
-
     });
 
 </script>

@@ -68,7 +68,7 @@
         },
         onFinished: function (event, currentIndex) {
             $('#loader').show();
-            $("#configurationform").submit();
+            $("#order_form").submit();
         }
     });
 
@@ -76,10 +76,17 @@
         var site_id = $('#site_id').val();
         var user_id = $('#user_id').val();
         var multiple = $('#multiple').prop("checked") ? 1 : 0;
+        var order_id = $('#order_id').val();
 
-        if (site_id && user_id && multiple) {
+        if (order_id) {
+            var url = "{{ route('siteManager.orders.updateOrder') }}";
+        } else {
+            var url = "{{ route('siteManager.orders.storeOrder') }}";
+        }
+
+        if (site_id && user_id) {
             $.ajax({
-                url: "{{ route('siteManager.orders.storeOrder') }}",
+                url: url,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -87,10 +94,13 @@
                 data: {
                     'site_id': site_id,
                     'user_id': user_id,
-                    'multiple': multiple
+                    'multiple': multiple,
+                    'order_id': order_id
                 },
                 success: function (response) {
-                    $('#order_id').val(response.id);
+                    if (!order_id) {
+                        $('#order_id').val(response.id);
+                    }
                 }
             });
         }
@@ -98,26 +108,38 @@
 
     function storeOrderDelivery() {
         var order_id = $('#order_id').val();
+        var order_delivery_id = $('#order_delivery_id').val();
         var name = $('#name').val();
         var address_1 = $('#address_1').val();
         var address_2 = $('#address_2').val();
         var delivery_date = $('#delivery_date').val();
+        console.log(order_delivery_id);
+        if (order_delivery_id) {
+            var url = "{{ route('siteManager.orders.updateOrderDelivery') }}";
+        } else {
+            var url = "{{ route('siteManager.orders.storeOrderDelivery') }}";
+        }
 
         if (order_id && name && address_1 && address_2 && delivery_date) {
             $.ajax({
-                url: "{{ route('siteManager.orders.storeOrderDelivery') }}",
+                url: url,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: 'GET',
                 data: {
                     'order_id': order_id,
+                    'order_delivery_id': order_delivery_id,
                     'name': name,
                     'address_1': address_1,
                     'address_2': address_2,
                     'delivery_date': delivery_date
                 },
-                success: function (response) {}
+                success: function (response) {
+                    if (!order_delivery_id) {
+                        $('#order_delivery_id').val(response.id);
+                    }
+                }
             });
         }
     }

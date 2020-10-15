@@ -63,6 +63,11 @@ Route::prefix('/siteManager')->namespace('App\Http\Controllers\SiteManagerArea')
         Route::get('/updateOrderDelivery', 'OrderController@updateOrderDelivery')->name('siteManager.orders.updateOrderDelivery');
 
         Route::get('/view/{id}', 'OrderController@view')->name('siteManager.orders.view');
+        Route::get('/delete/{id}', 'OrderController@delete')->name('siteManager.orders.delete');
+
+        Route::get('/place/{id}', 'OrderController@place')->name('siteManager.orders.place');
+        Route::get('/delivered/{id}', 'OrderController@delivered')->name('siteManager.orders.delivered');
+        Route::get('/partially/delivered/{id}', 'OrderController@partiallyDelivered')->name('siteManager.orders.delivered.partially');
 
         Route::prefix('/comments')->group(function () {
             Route::post('/store', 'OrderController@storeComments')->name('siteManager.comments.orders.store');
@@ -77,11 +82,32 @@ Route::prefix('/siteManager')->namespace('App\Http\Controllers\SiteManagerArea')
 Route::prefix('/accounting')->namespace('App\Http\Controllers\AccountingStaffArea')->group(function () {
 
     Route::get('/', 'HomeController@index')->name('accounting.index');
+
+    Route::prefix('/orders')->group(function () {
+        Route::get('/', 'OrderController@all')->name('accounting.orders.all');
+        Route::get('/view/{id}', 'OrderController@view')->name('accounting.orders.view');
+
+        Route::prefix('/comments')->group(function () {
+            Route::post('/store', 'OrderController@storeComments')->name('accounting.comments.orders.store');
+        });
+    });
 });
 
 Route::prefix('/seniorManagement')->namespace('App\Http\Controllers\SeniorManagementArea')->group(function () {
 
     Route::get('/', 'HomeController@index')->name('seniorManagement.index');
+
+    Route::prefix('/orders')->group(function () {
+        Route::get('/', 'OrderController@all')->name('seniorManagement.orders.all');
+        Route::get('/view/{id}', 'OrderController@view')->name('seniorManagement.orders.view');
+
+        Route::get('/approve/{id}', 'OrderController@approve')->name('seniorManagement.orders.approve');
+        Route::get('/decline/{id}', 'OrderController@decline')->name('seniorManagement.orders.decline');
+
+        Route::prefix('/comments')->group(function () {
+            Route::post('/store', 'OrderController@storeComments')->name('seniorManagement.comments.orders.store');
+        });
+    });
 });
 
 Route::prefix('/supplier')->namespace('App\Http\Controllers\SupplierArea')->group(function () {

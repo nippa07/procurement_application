@@ -1,5 +1,7 @@
 <script>
     $(document).ready(function () {
+        var delivery_date =
+            "{{$order->order_delivery?\carbon\carbon::parse($order->order_delivery->delivery_date)->format('m/d/yy'):\carbon\carbon::now()->format('m/d/yy')}}";
         $('#site_id').select2({
             placeholder: 'Select a Site',
             theme: "bootstrap"
@@ -20,10 +22,8 @@
             theme: "bootstrap"
         });
 
-        $("#delivery_date").datepicker().datepicker("setDate",
-                "{{ \carbon\carbon::parse($order->order_delivery->delivery_date)->format('m/d/yy') }}")
-            .datepicker('setStartDate',
-                "{{ \carbon\carbon::now()->format('m/d/yy') }}");
+        $("#delivery_date").datepicker().datepicker("setDate", delivery_date)
+            .datepicker('setStartDate', "{{ \carbon\carbon::now()->format('m/d/yy') }}");
 
         $('#items').DataTable({
             language: {
@@ -78,7 +78,7 @@
         var user_id = $('#user_id').val();
         var multiple = $('#multiple').prop("checked") ? 1 : 0;
 
-        if (site_id && user_id && multiple) {
+        if (site_id && user_id) {
             $.ajax({
                 url: "{{ route('siteManager.orders.updateOrder') }}",
                 headers: {
@@ -104,9 +104,15 @@
         var address_2 = $('#address_2').val();
         var delivery_date = $('#delivery_date').val();
 
+        if (order_delivery_id) {
+            var url = "{{ route('siteManager.orders.updateOrderDelivery') }}";
+        } else {
+            var url = "{{ route('siteManager.orders.storeOrderDelivery') }}";
+        }
+
         if (order_id && name && address_1 && address_2 && delivery_date) {
             $.ajax({
-                url: "{{ route('siteManager.orders.updateOrderDelivery') }}",
+                url: url,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -119,7 +125,11 @@
                     'address_2': address_2,
                     'delivery_date': delivery_date
                 },
-                success: function (response) {}
+                success: function (response) {
+                    if (!order_delivery_id) {
+                        $('#order_delivery_id').val(response.id);
+                    }
+                }
             });
         }
     }

@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    const STATUS = ['INCOMPLETE' => 0, 'PENDING' => 1, 'APPROVED' => 2, 'DECLINED' => 3];
+    const STATUS = ['INCOMPLETE' => 0, 'PENDING' => 1, 'APPROVED' => 2, 'DECLINED' => 3, 'PLACED' => 4, 'DELIVERED' => 5, 'PARTIALLY_DELIVERED' => 6];
 
     /**
      * The attributes that are mass assignable.

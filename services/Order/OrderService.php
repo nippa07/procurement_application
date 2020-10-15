@@ -2,7 +2,9 @@
 
 namespace services\Order;
 
+use App\Mail\PlaceOrder;
 use App\Models\Order;
+use Illuminate\Support\Facades\Mail;
 
 class OrderService
 {
@@ -21,6 +23,11 @@ class OrderService
     public function getAll()
     {
         return $this->order->all();
+    }
+
+    public function getByStatus($status)
+    {
+        return $this->order->where('status', $status)->get();
     }
 
     public function create($data)
@@ -71,7 +78,9 @@ class OrderService
         if (array_key_exists('mark_incomplete', $data)) {
             $order->status = Order::STATUS['INCOMPLETE'];
         } else {
-            $order->status = Order::STATUS['PENDING'];
+            if ($order->order_delivery) {
+                $order->status = Order::STATUS['PENDING'];
+            }
         }
 
         $order->save();
@@ -82,5 +91,22 @@ class OrderService
         $order = $this->get($data['order_id']);
 
         $this->update($order, $data);
+    }
+
+    public function changeStatus($id, $status)
+    {
+        $order = $this->get($id);
+        $order->status = $status;
+
+        $order->save();
+
+        switch ($order->status) {
+            case Order::STATUS['PLACED']:
+                Mail::to($order->user->email)->send(new PlaceOrder($order));
+                break;
+
+            default:
+                break;
+        }
     }
 }

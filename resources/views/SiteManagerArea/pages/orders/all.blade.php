@@ -69,10 +69,19 @@
                         <span class="badge badge-yellow">Pending</span>
                         @break
                         @case(\App\Models\Order::STATUS['APPROVED'])
-                        <span class="badge badge-success">Approved</span>
+                        <span class="badge badge-green">Approved</span>
                         @break
                         @case(\App\Models\Order::STATUS['DECLINED'])
                         <span class="badge badge-danger">Declined</span>
+                        @break
+                        @case(\App\Models\Order::STATUS['PLACED'])
+                        <span class="badge badge-primary">Placed</span>
+                        @break
+                        @case(\App\Models\Order::STATUS['DELIVERED'])
+                        <span class="badge badge-success">Delivered</span>
+                        @break
+                        @case(\App\Models\Order::STATUS['PARTIALLY_DELIVERED'])
+                        <span class="badge badge-info">Partially Delivered</span>
                         @break
                         @default
                         @endswitch
@@ -92,11 +101,35 @@
                                 <a class="dropdown-item" href="{{route('siteManager.orders.edit', $order->id)}}">
                                     <i class="fas fa-edit text-info"></i>&nbsp;Edit
                                 </a>
-                                <div class="dropdown-divider responsive-moblile">
-                                </div>
-                                <a class="dropdown-item delete-user" data-id="{{$order->id}}" href="javascript:void(0)">
+                                <div class="dropdown-divider responsive-moblile"></div>
+                                @if ($order->status == \App\Models\Order::STATUS['APPROVED'])
+                                <a class="dropdown-item" href="{{route('siteManager.orders.place', $order->id)}}">
+                                    <i class="fas fa-paper-plane text-success"></i>&nbsp;Place
+                                    Order
+                                </a>
+                                <div class="dropdown-divider responsive-moblile"></div>
+                                @endif
+                                @if ($order->status == \App\Models\Order::STATUS['PLACED'])
+                                <a class="dropdown-item"
+                                    href="{{route('siteManager.orders.delivered.partially', $order->id)}}">
+                                    <i class="fas fa-check text-default"></i>&nbsp;Mark Partially Delivered
+                                </a>
+                                <div class="dropdown-divider responsive-moblile"></div>
+                                @endif
+                                @if ($order->status == \App\Models\Order::STATUS['PLACED'] || $order->status ==
+                                \App\Models\Order::STATUS['PARTIALLY_DELIVERED'])
+                                <a class="dropdown-item" href="{{route('siteManager.orders.delivered', $order->id)}}">
+                                    <i class="fas fa-check-double text-success"></i>&nbsp;Mark Delivered
+                                </a>
+                                <div class="dropdown-divider responsive-moblile"></div>
+                                @endif
+                                @if ($order->status == \App\Models\Order::STATUS['DECLINED'])
+                                <a class="dropdown-item delete-order" data-id="{{$order->id}}"
+                                    href="javascript:void(0)">
                                     <i class="fas fa-user-times text-danger"></i>&nbsp;Delete
                                 </a>
+                                <div class="dropdown-divider responsive-moblile"></div>
+                                @endif
                             </div>
 
                         </div>
@@ -123,14 +156,15 @@
 
         $('[data-toggle="tooltip"]').tooltip()
     });
-    $(".delete-user").on('click', function () {
+
+    $(".delete-order").on('click', function () {
         var id = $(this).attr('data-id');
         $.confirm({
             title: 'Are you sure?',
-            content: 'This will delete this supplier permanently',
+            content: 'This will delete this order permanently',
             buttons: {
                 confirm: function () {
-                    window.location.href = '{{ url("siteManager/suppliers/delete") }}/' + id;
+                    window.location.href = '{{ url("siteManager/orders/delete") }}/' + id;
                 },
                 cancel: function () {
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SiteManagerArea;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use services\Facade\ItemFacade;
@@ -12,6 +13,8 @@ use services\Facade\OrderFacade;
 use services\Facade\OrderItemFacade;
 use services\Facade\SiteFacade;
 use services\Facade\UserFacade;
+
+use function PHPUnit\Framework\isEmpty;
 
 class OrderController extends ParentController
 {
@@ -111,5 +114,33 @@ class OrderController extends ParentController
         OrderCommentFacade::create($data);
 
         return redirect()->back()->with('alert-success', 'Comment posted successfully');
+    }
+
+    public function delete($id)
+    {
+        OrderFacade::deleteOrder($id);
+
+        return redirect()->back()->with('alert-success', 'Order Deleted successfully');
+    }
+
+    public function place($id)
+    {
+        OrderFacade::changeStatus($id, Order::STATUS['PLACED']);
+
+        return redirect()->back()->with('alert-success', 'Order Placed successfully');
+    }
+
+    public function delivered($id)
+    {
+        OrderFacade::changeStatus($id, Order::STATUS['DELIVERED']);
+
+        return redirect()->back()->with('alert-success', 'Order Marked as Delivered successfully');
+    }
+
+    public function partiallyDelivered($id)
+    {
+        OrderFacade::changeStatus($id, Order::STATUS['PARTIALLY_DELIVERED']);
+
+        return redirect()->back()->with('alert-success', 'Order Marked as Partially Delivered successfully');
     }
 }

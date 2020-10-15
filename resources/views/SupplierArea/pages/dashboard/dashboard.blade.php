@@ -15,6 +15,26 @@
                     </nav>
                 </div>
             </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 mb-4 mt-6">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 order-lg-2">
+                            <div class="card-profile-image">
+                                <img src="{{ asset('assets/img/avatar.png')  }}" alt="Profile Image"
+                                    class="rounded-circle">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0 mt-6">
+                        <div class="text-center" style="margin-top: 20%;">
+                            <h3 class="text-center">
+                                Hey! <strong>{{ Auth::user()->name }}</strong>
+                            </h3>
+                            <h5 class="text-center">Welcome to Procurement Application</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

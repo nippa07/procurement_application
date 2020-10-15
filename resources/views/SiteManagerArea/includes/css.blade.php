@@ -222,5 +222,10 @@
           background-color: #faefb0;
       }
 
+      .badge-green {
+          color: #008d18;
+          background-color: #a8dab0;
+      }
+
   </style>
   @yield('css')

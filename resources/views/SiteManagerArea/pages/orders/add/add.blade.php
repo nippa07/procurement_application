@@ -74,6 +74,7 @@
                                             Let the delivery handle multiple depots
                                         </label>
                                         <input id="order_id" type="hidden" name="order_id">
+                                        <input id="order_delivery_id" type="hidden" name="order_delivery_id">
                                     </div>
                                 </div>
                             </div>
