@@ -12,6 +12,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     const USER_LEVEL = ['SITE_MANAGER' => 1, 'ACCOUNTING_STAFF' => 2, 'SENIOR_MANAGEMENT' => 3, 'SUPPLIER' => 4];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +21,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password', 'user_level', 'phone', 'company_name', 'address_1', 'address_2', 'address_3'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *

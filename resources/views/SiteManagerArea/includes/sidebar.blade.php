@@ -29,6 +29,13 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
+                        <a class="nav-link  {{ $curr_url=='siteManager.orders.all'?'active':''}}"
+                            href="{{route('siteManager.orders.all')}}">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="nav-link-text">Purchase Orders</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link  {{ $curr_url=='siteManager.sites.all'?'active':''}}"
                             href="{{route('siteManager.sites.all')}}">
                             <i class="fas fa-building"></i>
