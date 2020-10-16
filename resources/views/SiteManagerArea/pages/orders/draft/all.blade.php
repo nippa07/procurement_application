@@ -6,11 +6,11 @@
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6">
-                    <h6 class="h2 text-dark d-inline-block mb-0">Purchase Orders</h6>
+                    <h6 class="h2 text-dark d-inline-block mb-0">Draft Orders</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-block ">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="">Purchase Orders</a></li>
+                            <li class="breadcrumb-item"><a href="">Draft Orders</a></li>
                         </ol>
                     </nav>
                 </div>
